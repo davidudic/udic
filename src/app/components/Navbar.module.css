@@ -1,0 +1,124 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 1000;
+    transition: var(--transition);
+    background-color: transparent;
+  }
+  
+  .navbar.scrolled {
+    background-color: var(--dark-blue);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    height: 60px;
+  }
+  
+  .navbar.scrolled a {
+    color: var(--pale-blue);
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .logo a {
+    color: var(--dark-blue);
+    transition: var(--transition);
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  
+  .navLinks a {
+    color: var(--dark-blue);
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+  }
+  
+  .navLinks a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--medium-blue);
+    transition: var(--transition);
+  }
+  
+  .navLinks a:hover::after {
+    width: 100%;
+  }
+  
+  .menuButton {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--dark-blue);
+  }
+  
+  .navbar.scrolled .menuButton {
+    color: var(--pale-blue);
+  }
+  
+  @media (max-width: 768px) {
+    .menuButton {
+      display: block;
+    }
+  
+    .navLinks {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      flex-direction: column;
+      background-color: var(--dark-blue);
+      width: 70%;
+      height: calc(100vh - 70px);
+      gap: 0;
+      padding-top: 2rem;
+      transition: var(--transition);
+    }
+  
+    .navLinks.active {
+      right: 0;
+    }
+  
+    .navLinks li {
+      width: 100%;
+    }
+  
+    .navLinks a {
+      color: var(--pale-blue);
+      display: block;
+      padding: 1rem 2rem;
+      width: 100%;
+    }
+  
+    .navLinks a:hover {
+      background-color: var(--medium-blue);
+    }
+  
+    .navLinks a::after {
+      display: none;
+    }
+  }
