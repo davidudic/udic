@@ -23,9 +23,10 @@ const ScrollProgressBar = () => {
       const scrollPercentage = scrollPosition / (docHeight - windowHeight);
       
       // Určení aktivního nodu podle procent scrollu
+      const sectionsCount = sections.length;
       const nodeIndex = Math.min(
-        Math.floor(scrollPercentage * sections.length),
-        sections.length - 1
+        Math.floor(scrollPercentage * sectionsCount),
+        sectionsCount - 1
       );
       
       setActiveNode(nodeIndex);
@@ -35,7 +36,7 @@ const ScrollProgressBar = () => {
     handleScroll(); // Inicializace
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [sections.length]); // Přidáno sections.length jako závislost
   
   // Kliknutí na nod pro navigaci na danou sekci
   const scrollToSection = (index: number) => {

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './Hero.module.css';
 import { fadeIn } from '@/utils/animation';
 
@@ -21,15 +21,7 @@ const Hero = () => {
   
   const currentPhrase = phrases[loopNum % phrases.length];
   
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      handleTyping();
-    }, typingSpeed);
-    
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum]);
-  
-  const handleTyping = () => {
+  const handleTyping = useCallback(() => {
     // Dokončení aktuální fráze
     if (!isDeleting && text === currentPhrase) {
       // Počkej, než začne mazání
@@ -59,7 +51,15 @@ const Hero = () => {
     } else {
       setTypingSpeed(150);
     }
-  };
+  }, [text, isDeleting, loopNum, currentPhrase]);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleTyping();
+    }, typingSpeed);
+    
+    return () => clearTimeout(timer);
+  }, [handleTyping, typingSpeed]);
   
   return (
     <div className={styles.hero}>
