@@ -5,7 +5,9 @@ export const metadata: Metadata = {
   title: 'David Udič | Portfolio',
   description: 'Osobní portfolio Davida Udiče, studenta IT se zaměřením na frontendový vývoj',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/DU.svg',          // Pro moderní prohlížeče
+    shortcut: '/DU.svg',      // Pro starší prohlížeče
+    apple: '/DU.svg',         // Pro iOS/MacOS
   },
 };
 
