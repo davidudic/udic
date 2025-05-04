@@ -3,41 +3,47 @@
 import { motion } from 'framer-motion';
 import styles from './Projects.module.css';
 import { fadeIn, staggerContainer } from '@/utils/animation';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaUtensils, FaTooth, FaChartLine } from 'react-icons/fa';
 import { Project } from '@/types';
 import Image from 'next/image';
 
 const projects: Project[] = [
   {
     id: 1,
-    title: 'Projekt 1',
-    description: 'Webová aplikace vytvořená v Reactu s využitím moderních technologií a postupů.',
-    technologies: ['React', 'Next.js', 'CSS Modules'],
-    github: 'https://github.com',
-    live: 'https://example.com',
+    title: 'JAKOBY',
+    description: 'Moderní webové prezentace pro restauraci & bar v centru Brna. Vychutnejte si skvělou atmosféru na vyhláseném Jakubském náměstí.',
+    technologies: ['React', 'Next.js', 'CSS3', 'JavaScript', 'Restaurant Design'],
+    live: 'https://restauracejakoby.cz',
     image: '/project1.png'
   },
   {
     id: 2,
-    title: 'Projekt 2',
-    description: 'Responzivní e-commerce řešení s integrací platební brány a správou produktů.',
-    technologies: ['JavaScript', 'Node.js', 'Express', 'MongoDB'],
-    github: 'https://github.com',
-    live: 'https://example.com',
+    title: 'LA DENTA',
+    description: 'Komplexní webové řešení pro rodinnou zubní kliniku v Holešovicích. Moderní design s důrazem na profesionalitu a důvěru.',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'UX/UI Design'],
+    live: 'https://www.ladenta.cz',
     image: '/project2.png'
   },
   {
     id: 3,
-    title: 'Projekt 3',
-    description: 'Mobilní aplikace pro sledování osobních financí s vizualizacemi a statistikami.',
-    technologies: ['React Native', 'Firebase', 'Chart.js'],
-    github: 'https://github.com',
-    live: 'https://example.com',
+    title: 'Kateřina Bendová',
+    description: 'Profesionální portfolio pro finančního poradce. Elegantní design prezentující služby a budující důvěru s potenciálními klienty.',
+    technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Financial Advisory'],
+    live: 'https://katerinabendova.cz',
     image: '/project3.png'
   }
 ];
 
 const Projects = () => {
+  const getProjectIcon = (index: number) => {
+    switch(index) {
+      case 0: return <FaUtensils />;
+      case 1: return <FaTooth />;
+      case 2: return <FaChartLine />;
+      default: return null;
+    }
+  };
+
   return (
     <div className="container">
       <motion.div 
@@ -51,7 +57,7 @@ const Projects = () => {
           variants={fadeIn('right', 0.2)}
           className={styles.projectsHeading}
         >
-          Projekty
+          Moje práce
         </motion.h2>
         
         <div className={styles.projectsList}>
@@ -60,8 +66,15 @@ const Projects = () => {
               key={project.id}
               className={styles.projectCard}
               variants={fadeIn('up', 0.3 + index * 0.2)}
+              whileHover="hover"
             >
-              <div className={styles.projectImage}>
+              <motion.div 
+                className={styles.projectImage}
+                variants={{
+                  hover: { scale: 1.1 }
+                }}
+                transition={{ duration: 0.3 }}
+              >
                 <Image 
                   src={project.image} 
                   alt={project.title}
@@ -69,9 +82,14 @@ const Projects = () => {
                   height={300}
                   style={{width: '100%', height: '100%', objectFit: 'cover'}}
                 />
-              </div>
+              </motion.div>
               <div className={styles.projectContent}>
-                <h3>{project.title}</h3>
+                <div className={styles.projectHeader}>
+                  <h3>{project.title}</h3>
+                  <div className={styles.projectIcon}>
+                    {getProjectIcon(index)}
+                  </div>
+                </div>
                 <p>{project.description}</p>
                 <div className={styles.technologies}>
                   {project.technologies.map((tech, i) => (
@@ -79,14 +97,19 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className={styles.projectLinks}>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer">
-                    <FaGithub /> GitHub
-                  </a>
                   <a href={project.live} target="_blank" rel="noopener noreferrer">
-                    <FaExternalLinkAlt /> Demo
+                    <FaExternalLinkAlt /> Navštívit web
                   </a>
                 </div>
               </div>
+              <motion.div 
+                className={styles.cardBorder}
+                variants={{
+                  hover: { scaleX: 1, opacity: 1 }
+                }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
             </motion.div>
           ))}
         </div>
