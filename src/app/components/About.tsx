@@ -83,15 +83,6 @@ const About = () => {
                 <p>Důraz na estetiku a funkcionalitu pro vytváření intuitivních rozhraní.</p>
               </motion.div>
             </div>
-            
-            <motion.div 
-              className={styles.cta}
-              variants={fadeIn('up', 0.7)}
-            >
-              <a href="/resume.pdf" className={styles.resumeBtn} download>
-                Stáhnout CV
-              </a>
-            </motion.div>
           </motion.div>
         </div>
       </motion.div>

@@ -60,6 +60,13 @@ const Hero = () => {
     
     return () => clearTimeout(timer);
   }, [handleTyping, typingSpeed]);
+
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   
   return (
     <div className={styles.hero}>
@@ -111,6 +118,7 @@ const Hero = () => {
             className={styles.scrollDown}
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            onClick={scrollToAbout}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M19 12l-7 7-7-7"/>

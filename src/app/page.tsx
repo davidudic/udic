@@ -7,7 +7,6 @@ import Projects from '@/app/components/Projects';
 import Skills from '@/app/components/Skills';
 import Contact from '@/app/components/Contact';
 import Footer from '@/app/components/Footer';
-import ScrollProgressBar from '@/app/components/ScrollProgressBar';
 import StructuredData from '@/app/components/StructuredData';
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
     <>
       <StructuredData />
       <Navbar />
-      <ScrollProgressBar />
       <main>
         <section id="home">
           <Hero />
