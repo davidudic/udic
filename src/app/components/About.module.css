@@ -3,6 +3,52 @@
   padding: var(--spacing-2xl) 0;
 }
 
+/* Simple CSS animations for desktop */
+@media (min-width: 769px) {
+  .fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  .fadeInLeft {
+    animation: fadeInLeft 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  
+  .fadeInRight {
+    animation: fadeInRight 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  
+  .skillCard.fadeInUp {
+    animation-delay: calc(0.5s + var(--delay, 0s));
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .content {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -201,36 +247,68 @@
   
   .skillCards {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
-    display: grid !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    padding: 0 var(--spacing-md);
   }
   
   .skillCard {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    transform: none !important;
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .skillCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .iconContainer {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  .skillCard h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .skillCard p {
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
   
   .bio {
     font-size: 1.1rem;
+    margin-bottom: var(--spacing-xl);
   }
 }
 
 /* Extra small mobile screens */
 @media (max-width: 480px) {
   .skillCards {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
     padding: 0 var(--spacing-sm);
   }
   
   .skillCard {
     padding: var(--spacing-lg);
-    margin: 0;
+  }
+  
+  .iconContainer {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  .skillCard h3 {
+    font-size: 1.1rem;
+  }
+  
+  .skillCard p {
+    font-size: 0.85rem;
   }
 }
 

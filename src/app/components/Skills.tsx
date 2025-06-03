@@ -1,168 +1,139 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Skills.module.css';
-import { fadeIn, staggerContainer } from '@/utils/animation';
 import { 
   FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaJs, FaNpm, 
-  FaFigma, FaNode, FaCode, FaSearch
+  FaFigma, FaNode, FaCode, FaSearch, FaDatabase
 } from 'react-icons/fa';
 import { 
   SiNextdotjs, SiTypescript, SiMongodb, SiVercel,
-  SiVite, SiJsonwebtokens, SiDotnet, SiDocker
+  SiVite, SiJsonwebtokens, SiDotnet, SiDocker, SiSqlite
 } from 'react-icons/si';
 import { ReactNode } from 'react';
-import { FaDatabase } from 'react-icons/fa';
-import { SiSqlite } from 'react-icons/si';
 
-interface SkillCategory {
+interface Skill {
   name: string;
-  skills: {
-    name: string;
-    icon: ReactNode;
-    level: number;
-  }[];
+  icon: ReactNode;
+  level: number;
+  category: 'frontend' | 'backend' | 'tools';
 }
 
-const skillCategories: SkillCategory[] = [
-  {
-    name: 'Frontend',
-    skills: [
-      { name: 'React', icon: <FaReact />, level: 100 },
-      { name: 'Next.js', icon: <SiNextdotjs />, level: 100 },
-      { name: 'JavaScript', icon: <FaJs />, level: 85 },
-      { name: 'TypeScript', icon: <SiTypescript />, level: 90 },
-      { name: 'SEO optimalizace', icon: <FaSearch />, level: 95 },
-      { name: 'HTML', icon: <FaHtml5 />, level: 85 },
-      { name: 'CSS', icon: <FaCss3Alt />, level: 90 },
-    ]
-  },
-  {
-    name: 'Backend',
-    skills: [
-      { name: 'Node.js', icon: <FaNode />, level: 75 },
-      { name: '.NET', icon: <SiDotnet />, level: 70 },
-      { name: 'MongoDB', icon: <SiMongodb />, level: 70 },
-      { name: 'JWT', icon: <SiJsonwebtokens />, level: 75 },
-      { name: 'SQL', icon: <FaDatabase />, level: 80 },
-      { name: 'SQLite', icon: <SiSqlite />, level: 75 },
-    ]
-  },
-  {
-    name: 'Nástroje',
-    skills: [
-      { name: 'Git', icon: <FaGitAlt />, level: 85 },
-      { name: 'VS Code', icon: <FaCode />, level: 90 },
-      { name: 'npm', icon: <FaNpm />, level: 80 },
-      { name: 'Figma', icon: <FaFigma />, level: 70 },
-      { name: 'Vercel', icon: <SiVercel />, level: 75 },
-      { name: 'Vite', icon: <SiVite />, level: 70 },
-      { name: 'Docker', icon: <SiDocker />, level: 65 },
-    ]
-  }
+const skills: Skill[] = [
+  // Frontend
+  { name: 'React', icon: <FaReact />, level: 90, category: 'frontend' },
+  { name: 'Next.js', icon: <SiNextdotjs />, level: 85, category: 'frontend' },
+  { name: 'TypeScript', icon: <SiTypescript />, level: 80, category: 'frontend' },
+  { name: 'JavaScript', icon: <FaJs />, level: 85, category: 'frontend' },
+  { name: 'HTML', icon: <FaHtml5 />, level: 90, category: 'frontend' },
+  { name: 'CSS', icon: <FaCss3Alt />, level: 85, category: 'frontend' },
+  
+  // Backend
+  { name: 'Node.js', icon: <FaNode />, level: 75, category: 'backend' },
+  { name: '.NET', icon: <SiDotnet />, level: 70, category: 'backend' },
+  { name: 'MongoDB', icon: <SiMongodb />, level: 70, category: 'backend' },
+  { name: 'SQL', icon: <FaDatabase />, level: 75, category: 'backend' },
+  
+  // Tools
+  { name: 'Git', icon: <FaGitAlt />, level: 85, category: 'tools' },
+  { name: 'VS Code', icon: <FaCode />, level: 90, category: 'tools' },
+  { name: 'Figma', icon: <FaFigma />, level: 70, category: 'tools' },
+  { name: 'Vercel', icon: <SiVercel />, level: 80, category: 'tools' },
 ];
 
-// Pomocná funkce pro určení velikosti hexagonu podle úrovně dovednosti
-const getHexSize = (level: number): string => {
-  if (level >= 90) return styles.hexExpert;
-  if (level >= 80) return styles.hexAdvanced;
-  if (level >= 70) return styles.hexIntermediate;
-  return styles.hexBeginner;
-};
-
-// Pomocná funkce pro získání barvy podle kategorie
-const getCategoryColor = (categoryName: string): string => {
-  switch (categoryName) {
-    case 'Frontend':
-      return styles.frontendCategory;
-    case 'Backend':
-      return styles.backendCategory;
-    case 'Nástroje':
-      return styles.toolsCategory;
-    default:
-      return '';
-  }
-};
-
 const Skills = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<'all' | 'frontend' | 'backend' | 'tools'>('all');
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const filteredSkills = activeCategory === 'all' 
+    ? skills 
+    : skills.filter(skill => skill.category === activeCategory);
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'frontend': return 'var(--accent-primary)';
+      case 'backend': return 'var(--accent-secondary)';
+      case 'tools': return '#f59e0b';
+      default: return 'var(--accent-primary)';
+    }
+  };
+
   return (
     <div className="container">
-      <motion.div 
-        variants={staggerContainer(0.2, 0.2)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-        className={styles.skills}
-      >
-        <motion.h2 
-          variants={fadeIn('right', 0.2)}
-          className={styles.skillsHeading}
-        >
-          Dovednosti
-        </motion.h2>
-        
-        <div className={styles.skillsContainer}>
-          {skillCategories.map((category, catIndex) => (
-            <motion.div 
-              key={category.name}
-              className={styles.categorySection}
-              variants={fadeIn('up', 0.3 + catIndex * 0.1)}
+      <section ref={sectionRef} className={`${styles.skills} ${isVisible ? styles.visible : ''}`}>
+        <div className={styles.header}>
+          <h2>Dovednosti</h2>
+          <p>Technologie a nástroje, které používám při vývoji</p>
+        </div>
+
+        {/* Category Filter */}
+        <div className={styles.categoryFilter}>
+          {[
+            { key: 'all', label: 'Všechny' },
+            { key: 'frontend', label: 'Frontend' },
+            { key: 'backend', label: 'Backend' },
+            { key: 'tools', label: 'Nástroje' }
+          ].map((category) => (
+            <button
+              key={category.key}
+              className={`${styles.filterButton} ${activeCategory === category.key ? styles.active : ''}`}
+              onClick={() => setActiveCategory(category.key as any)}
             >
-              <h3 className={`${styles.categoryHeading} ${getCategoryColor(category.name)}`}>
-                {category.name}
-              </h3>
-              
-              <div className={styles.skillsGrid}>
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={`${category.name}-${skill.name}`}
-                    className={`${styles.skillItem} ${getHexSize(skill.level)}`}
-                    whileHover={{ 
-                      scale: 1.05,
-                      transition: { duration: 0.3 }
-                    }}
-                    whileTap={{ 
-                      scale: 1.05,
-                      transition: { duration: 0.3 }
-                    }}
-                    variants={fadeIn('up', 0.3 + (catIndex * 0.1) + (skillIndex * 0.05))}
-                  >
-                    <div className={styles.hexagon}>
-                      <div className={styles.hexContent}>
-                        <div className={styles.skillIcon}>
-                          {skill.icon}
-                        </div>
-                        <span className={styles.skillName}>{skill.name}</span>
-                      </div>
-                    </div>
-                    
-                    <div className={styles.skillTooltip}>
-                      <span className={styles.skillLevel}>{skill.level}%</span>
-                      <div className={styles.tooltipBar}>
-                        <div 
-                          className={styles.tooltipFill} 
-                          style={{width: `${skill.level}%`}}
-                        ></div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+              {category.label}
+            </button>
           ))}
         </div>
-        
-        <motion.div 
-          className={styles.skillsDescription}
-          variants={fadeIn('up', 0.5)}
-        >
+
+        {/* Skills Grid */}
+        <div className={styles.skillsGrid}>
+          {filteredSkills.map((skill) => (
+            <div 
+              key={skill.name} 
+              className={styles.skillCard}
+              style={{'--category-color': getCategoryColor(skill.category)} as React.CSSProperties}
+            >
+              <div className={styles.skillIcon}>
+                {skill.icon}
+              </div>
+              <h3 className={styles.skillName}>{skill.name}</h3>
+              <div className={styles.skillLevel}>
+                <div className={styles.levelBackground}>
+                  <div 
+                    className={styles.levelFill}
+                    style={{width: isVisible ? `${skill.level}%` : '0%'}}
+                  ></div>
+                </div>
+                <span className={styles.levelText}>{skill.level}%</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.description}>
           <p>
-            Neustále se zdokonaluji v nových technologiích a rozšiřuji své znalosti. 
-            Mám zájem o moderní webové frameworky a nástroje, které zefektivňují vývoj
-            a zlepšují uživatelský zážitek.
+            Neustále se vzdělávám v nových technologiích a rozšiřuji své znalosti. 
+            Baví mě sledovat trendy ve webovém vývoji a experimentovat s novými nástroji.
           </p>
-        </motion.div>
-      </motion.div>
+        </div>
+      </section>
     </div>
   );
 };

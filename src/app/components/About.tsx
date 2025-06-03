@@ -1,28 +1,17 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from './About.module.css';
-import { fadeIn, staggerContainer } from '@/utils/animation';
 import { FaCode, FaLaptopCode, FaPaintBrush } from 'react-icons/fa';
 
 const About = () => {
   return (
     <div className="container">
-      <motion.div 
-        variants={staggerContainer(0.2, 0.2)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.1 }}
-        className={styles.about}
-      >
-        <motion.h2 variants={fadeIn('right', 0.2)}>O mně</motion.h2>
+      <div className={styles.about}>
+        <h2>O mně</h2>
         
         <div className={styles.content}>
-          <motion.div 
-            className={styles.imageContainer}
-            variants={fadeIn('right', 0.3)}
-          >
+          <div className={styles.imageContainer}>
             <div className={styles.imageBorder}>
               <Image 
                 src="/me.png" 
@@ -34,64 +23,43 @@ const About = () => {
             </div>
             <div className={styles.imageShadow}></div>
             <div className={styles.imageDecoration}></div>
-          </motion.div>
+          </div>
           
-          <motion.div 
-            className={styles.textContent}
-            variants={fadeIn('left', 0.3)}
-          >
+          <div className={styles.textContent}>
             <p className={styles.bio}>
               Jsem student oboru Informační technologie na SPŠSE Liberec. Zaměřuji se primárně na frontendový 
               vývoj webových aplikací, baví mě React a moderní technologie. Rád tvořím přehledné 
               a funkční UI s přesahem do UX.
             </p>
             
-            <motion.div 
-              className={styles.skillCards}
-              variants={staggerContainer(0.1, 0.4)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <motion.div 
-                className={styles.skillCard}
-                whileHover={{ y: -10, boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
-                variants={fadeIn('up', 0.1)}
-              >
+            <div className={styles.skillCards}>
+              <div className={styles.skillCard}>
                 <div className={styles.iconContainer}>
                   <FaLaptopCode />
                 </div>
                 <h3>Frontend</h3>
                 <p>Vývoj moderních webových aplikací s důrazem na uživatelský zážitek.</p>
-              </motion.div>
+              </div>
               
-              <motion.div 
-                className={styles.skillCard}
-                whileHover={{ y: -10, boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
-                variants={fadeIn('up', 0.2)}
-              >
+              <div className={styles.skillCard}>
                 <div className={styles.iconContainer}>
                   <FaCode />
                 </div>
                 <h3>Technologie</h3>
                 <p>React, Next.js, JavaScript a další moderní nástroje pro efektivní vývoj.</p>
-              </motion.div>
+              </div>
               
-              <motion.div 
-                className={styles.skillCard}
-                whileHover={{ y: -10, boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
-                variants={fadeIn('up', 0.3)}
-              >
+              <div className={styles.skillCard}>
                 <div className={styles.iconContainer}>
                   <FaPaintBrush />
                 </div>
                 <h3>Design</h3>
                 <p>Důraz na estetiku a funkcionalitu pro vytváření intuitivních rozhraní.</p>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </div>
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
