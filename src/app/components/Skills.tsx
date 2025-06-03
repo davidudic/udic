@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Skills.module.css';
 import { 
-  FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaJs, FaNpm, 
-  FaFigma, FaNode, FaCode, FaSearch, FaDatabase
+  FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaJs,
+  FaFigma, FaNode, FaCode, FaDatabase
 } from 'react-icons/fa';
 import { 
   SiNextdotjs, SiTypescript, SiMongodb, SiVercel,
-  SiVite, SiJsonwebtokens, SiDotnet, SiDocker, SiSqlite
+  SiDotnet
 } from 'react-icons/si';
 import { ReactNode } from 'react';
 
@@ -95,7 +95,7 @@ const Skills = () => {
             <button
               key={category.key}
               className={`${styles.filterButton} ${activeCategory === category.key ? styles.active : ''}`}
-              onClick={() => setActiveCategory(category.key as any)}
+              onClick={() => setActiveCategory(category.key as 'all' | 'frontend' | 'backend' | 'tools')}
             >
               {category.label}
             </button>
