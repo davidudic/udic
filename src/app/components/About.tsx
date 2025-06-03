@@ -13,7 +13,7 @@ const About = () => {
         variants={staggerContainer(0.2, 0.2)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
         className={styles.about}
       >
         <motion.h2 variants={fadeIn('right', 0.2)}>O mně</motion.h2>
@@ -46,11 +46,17 @@ const About = () => {
               a funkční UI s přesahem do UX.
             </p>
             
-            <div className={styles.skillCards}>
+            <motion.div 
+              className={styles.skillCards}
+              variants={staggerContainer(0.1, 0.4)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.1 }}
+            >
               <motion.div 
                 className={styles.skillCard}
                 whileHover={{ y: -10, boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
-                variants={fadeIn('up', 0.4)}
+                variants={fadeIn('up', 0.1)}
               >
                 <div className={styles.iconContainer}>
                   <FaLaptopCode />
@@ -62,7 +68,7 @@ const About = () => {
               <motion.div 
                 className={styles.skillCard}
                 whileHover={{ y: -10, boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
-                variants={fadeIn('up', 0.5)}
+                variants={fadeIn('up', 0.2)}
               >
                 <div className={styles.iconContainer}>
                   <FaCode />
@@ -74,7 +80,7 @@ const About = () => {
               <motion.div 
                 className={styles.skillCard}
                 whileHover={{ y: -10, boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
-                variants={fadeIn('up', 0.6)}
+                variants={fadeIn('up', 0.3)}
               >
                 <div className={styles.iconContainer}>
                   <FaPaintBrush />
@@ -82,7 +88,7 @@ const About = () => {
                 <h3>Design</h3>
                 <p>Důraz na estetiku a funkcionalitu pro vytváření intuitivních rozhraní.</p>
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </motion.div>
