@@ -1,15 +1,31 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { JetBrains_Mono, Space_Grotesk } from 'next/font/google';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'David Udič | Web Developer - Tvorba webových stránek na míru',
-  description: 'David Udič - Frontend web developer a student IT. Tvorba moderních webových stránek na míru, React, Next.js. Portfolio, kontakt a služby.',
-  keywords: 'David Udič, Udič, web developer, frontend developer, tvorba webů, web na míru, React developer, Next.js developer, portfolio David Udič, student IT',
+  description:
+    'David Udič - Frontend web developer a student IT. Tvorba moderních webových stránek na míru, React, Next.js. Portfolio, kontakt a služby.',
+  keywords:
+    'David Udič, Udič, web developer, frontend developer, tvorba webů, web na míru, React developer, Next.js developer, portfolio David Udič, student IT',
   authors: [{ name: 'David Udič' }],
   creator: 'David Udič',
   openGraph: {
     title: 'David Udič | Web Developer - Tvorba webových stránek',
-    description: 'David Udič - Frontend web developer. Tvorba moderních webových stránek na míru, React, Next.js. Spojte se se mnou pro váš webový projekt.',
+    description:
+      'David Udič - Frontend web developer. Tvorba moderních webových stránek na míru, React, Next.js. Spojte se se mnou pro váš webový projekt.',
     url: 'https://udic.cz',
     siteName: 'David Udič Portfolio',
     images: [
@@ -56,15 +72,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+      <body className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
         {children}
       </body>
     </html>
