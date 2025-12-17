@@ -18,7 +18,6 @@ const StructuredData = () => {
           url: 'https://udic.cz',
           image: 'https://udic.cz/me.png',
           sameAs: [
-            content.links.github,
             content.links.linkedin
           ],
           email: content.contact.email,

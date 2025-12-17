@@ -88,10 +88,6 @@ export function ContactSection() {
                   <span>Telefon</span>
                   <code>{content.contact.phone}</code>
                 </a>
-                <a className={styles.link} href={content.links.github} target="_blank" rel="noreferrer">
-                  <span>GitHub</span>
-                  <code>github.com/davidudic</code>
-                </a>
                 <a className={styles.link} href={content.links.linkedin} target="_blank" rel="noreferrer">
                   <span>LinkedIn</span>
                   <code>linkedin.com/in/david-udic</code>

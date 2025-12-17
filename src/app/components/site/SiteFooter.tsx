@@ -19,9 +19,6 @@ export function SiteFooter() {
             <a className={styles.link} href="#top">
               Nahoru
             </a>
-            <a className={styles.link} href={content.links.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
             <a className={styles.link} href={content.links.linkedin} target="_blank" rel="noreferrer">
               LinkedIn
             </a>

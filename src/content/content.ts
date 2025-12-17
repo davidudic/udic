@@ -189,7 +189,6 @@ export const content = {
     ],
   },
   links: {
-    github: 'https://github.com/davidudic',
     linkedin: 'https://linkedin.com/in/david-udic',
   },
   contact: {
