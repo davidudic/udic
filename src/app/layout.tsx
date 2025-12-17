@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { JetBrains_Mono, Space_Grotesk } from 'next/font/google';
+import { BackgroundFXClient } from './components/background/BackgroundFXClient';
+import styles from './layout.module.css';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -15,17 +17,18 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'David Udič | Web Developer - Tvorba webových stránek na míru',
+  metadataBase: new URL('https://udic.cz'),
+  title: 'David Udič | Full‑stack developer',
   description:
-    'David Udič - Frontend web developer a student IT. Tvorba moderních webových stránek na míru, React, Next.js. Portfolio, kontakt a služby.',
+    'Full‑stack developer zaměřený na moderní UI, API, databáze a integrace. Next.js, TypeScript, C#, PostgreSQL.',
   keywords:
-    'David Udič, Udič, web developer, frontend developer, tvorba webů, web na míru, React developer, Next.js developer, portfolio David Udič, student IT',
+    'David Udič, full-stack developer, TypeScript, Next.js, React, C#, .NET, PostgreSQL, MongoDB, integrace, testing, portfolio',
   authors: [{ name: 'David Udič' }],
   creator: 'David Udič',
   openGraph: {
-    title: 'David Udič | Web Developer - Tvorba webových stránek',
+    title: 'David Udič | Full‑stack developer',
     description:
-      'David Udič - Frontend web developer. Tvorba moderních webových stránek na míru, React, Next.js. Spojte se se mnou pro váš webový projekt.',
+      'Moderní webové produkty od UI přes API až po databáze a integrace. Next.js, TypeScript, C#.',
     url: 'https://udic.cz',
     siteName: 'David Udič Portfolio',
     images: [
@@ -41,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'David Udič | Web Developer - Tvorba webových stránek',
-    description: 'Frontend web developer specializující se na React a Next.js. Tvorba webů na míru.',
+    title: 'David Udič | Full‑stack developer',
+    description: 'Full‑stack developer: UI + API + databáze + integrace. Next.js, TypeScript, C#.',
     images: ['/og-image.jpg'],
   },
   robots: {
@@ -72,8 +75,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs">
-      <body className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
-        {children}
+      <body className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} ${styles.body}`}>
+        <a className={styles.skipLink} href="#content">
+          Přeskočit na obsah
+        </a>
+        <div className={styles.bg} aria-hidden />
+        <BackgroundFXClient />
+        <div className={styles.noise} aria-hidden />
+        <div className={styles.app}>{children}</div>
       </body>
     </html>
   );

@@ -4,7 +4,15 @@
 }
 
 .projectsHeading {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.projectsDisclaimer {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: var(--spacing-xl);
 }
 
 .projectsList {

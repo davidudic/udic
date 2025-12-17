@@ -1,27 +1,34 @@
+import { content } from '@/content/content';
+
 const StructuredData = () => {
+    const knowsAbout = Array.from(
+      new Set(content.skills.flatMap((group) => group.items).map((item) => item.replace(/\s*\(.*\)\s*/g, '').trim()))
+    ).slice(0, 25);
+
     const structuredData = {
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'Person',
           '@id': 'https://udic.cz/#person',
-          name: 'David Udič',
-          jobTitle: 'Web Developer',
-          description: 'Frontend web developer a student IT specializující se na React a Next.js',
+          name: content.person.name,
+          jobTitle: content.person.title,
+          description:
+            'Full‑stack developer zaměřený na moderní UI, API, databáze a integrace (Next.js, TypeScript, C#, PostgreSQL).',
           url: 'https://udic.cz',
           image: 'https://udic.cz/me.png',
           sameAs: [
-            'https://github.com/davidudic',
-            'https://linkedin.com/in/david-udic'
+            content.links.github,
+            content.links.linkedin
           ],
-          email: 'davidudic06fx@gmail.com',
-          telephone: '+420727828136',
+          email: content.contact.email,
+          telephone: content.contact.phone.replace(/\s+/g, ''),
           address: {
             '@type': 'PostalAddress',
             addressLocality: 'Liberec',
             addressCountry: 'CZ'
           },
-          knowsAbout: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'Frontend Development']
+          knowsAbout
         },
         {
           '@type': 'WebSite',
@@ -31,44 +38,40 @@ const StructuredData = () => {
           publisher: {
             '@id': 'https://udic.cz/#person'
           },
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: 'https://udic.cz/?s={search_term_string}',
-            'query-input': 'required name=search_term_string'
-          }
+          inLanguage: 'cs-CZ'
         },
         {
           '@type': 'Service',
           '@id': 'https://udic.cz/#service',
-          name: 'Tvorba webových stránek na míru',
-          description: 'Profesionální tvorba moderních webových stránek s využitím React a Next.js',
+          name: 'Full‑stack web development',
+          description: 'Vývoj moderních webových produktů: UI/UX, frontend, backend API, databáze a integrace.',
           provider: {
             '@id': 'https://udic.cz/#person'
           },
           areaServed: 'CZ',
           hasOfferCatalog: {
             '@type': 'OfferCatalog',
-            name: 'Web Development Services',
+            name: 'Services',
             itemListElement: [
               {
                 '@type': 'Offer',
                 itemOffered: {
                   '@type': 'Service',
-                  name: 'Frontend Development'
+                  name: 'Frontend & UI engineering'
                 }
               },
               {
                 '@type': 'Offer',
                 itemOffered: {
                   '@type': 'Service',
-                  name: 'React Development'
+                  name: 'Backend API & integrations'
                 }
               },
               {
                 '@type': 'Offer',
                 itemOffered: {
                   '@type': 'Service',
-                  name: 'Next.js Development'
+                  name: 'Database design (SQL / NoSQL)'
                 }
               }
             ]
